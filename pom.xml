@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>7bits</groupId>
-    <artifactId>courses</artifactId>
+    <artifactId>homebits</artifactId>
     <version>SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>courses</name>
+    <name>homebits</name>
     <url>http://maven.apache.org</url>
 
     <properties>
