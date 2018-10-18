@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 public class testFormatter {
     @Test
-    public void testFormatV1() {
+    public void testFormatStringOneSpaced() {
         Formatter formatter = new Formatter();
         String ex = "aaa { bbbb; ccc;}";
         String ex_s = "aaa {\n" +
@@ -16,7 +16,7 @@ public class testFormatter {
     }
 
     @Test
-    public void testFormatV2() {
+    public void testFormatStringSpaced() {
         Formatter formatter = new Formatter();
         String ex = "aaa {    bbbb; ccc;}";
         String ex_s = "aaa {\n" +
@@ -27,7 +27,7 @@ public class testFormatter {
     }
 
     @Test
-    public void testFormatV3() {
+    public void testFormatRandomSpaced() {
         Formatter formatter = new Formatter();
         String ex = "aaa { bbbb;    ccc;   }";
         String ex_s = "aaa {\n" +
@@ -38,7 +38,7 @@ public class testFormatter {
     }
 
     @Test
-    public void testFormatV4() {
+    public void testFormatOneBigSpacing() {
         Formatter formatter = new Formatter();
         String ex = "aaa {            bbbb; ccc;}";
         String ex_s = "aaa {\n" +
@@ -48,7 +48,7 @@ public class testFormatter {
         assertEquals(formatter.format(ex), ex_s);
     }
     @Test
-    public void testFormatV5() {
+    public void testFormatNesting() {
         Formatter formatter = new Formatter();
         String ex = "aaa { aa{aa;}}";
         String ex_s =
@@ -56,6 +56,20 @@ public class testFormatter {
                 "    aa{\n" +
                 "        aa;\n" +
                 "    }\n" +
+                "}";
+        assertEquals(formatter.format(ex), ex_s);
+    }
+
+    @Test
+    public void testFormatAlreadyFormattedString() {
+        Formatter formatter = new Formatter();
+        String ex = "aaa {\n" +
+                "    bbbb;\n" +
+                "    ccc;\n" +
+                "}";
+        String ex_s = "aaa {\n" +
+                "    bbbb;\n" +
+                "    ccc;\n" +
                 "}";
         assertEquals(formatter.format(ex), ex_s);
     }

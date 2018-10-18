@@ -54,7 +54,7 @@ public class Formatter {
     }
 
     private int getNextNotSpaceIndex(String str, int index) {
-        while (index < str.length() && str.charAt(index) == Config.intentChar) {
+        while (index < str.length() && str.charAt(index) == Config.intentChar || str.charAt(index) == '\n') {
             index++;
         }
         return index;
