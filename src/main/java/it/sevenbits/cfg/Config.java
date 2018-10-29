@@ -24,7 +24,7 @@ public final class Config {
      */
     public static final char WRAP_END = '}';
     /**
-     * intent char (space)
+     * indent char (space)
      */
     public static final char INDENT_CHAR = ' ';
     /**
