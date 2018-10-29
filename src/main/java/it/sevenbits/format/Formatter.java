@@ -17,21 +17,21 @@ public class Formatter {
     public void format(final IReader reader, final IWriter writer) {
         int nestCntr = 0;
         char current = nextNotSpaceSymbol(reader);
-        if (current == Config.INTENT_CHAR) {
+        if (current == Config.INDENT_CHAR) {
             return;
         }
-        while (reader.hasNext() || current != Config.INTENT_CHAR) {
+        while (reader.hasNext() || current != Config.INDENT_CHAR) {
             if (current == Config.LINE_BREAKER) {
                 writer.write(current);
                 current = nextNotSpaceSymbol(reader);
-                if (current != Config.INTENT_CHAR && current != Config.WRAP_END) {
+                if (current != Config.INDENT_CHAR && current != Config.WRAP_END) {
                     jumpToNextAndAddIntent(writer, nestCntr);
                 }
             } else if (current == Config.WRAP_START) {
                 writer.write(current);
                 nestCntr++;
                 current = nextNotSpaceSymbol(reader);
-                if (current != Config.INTENT_CHAR) {
+                if (current != Config.INDENT_CHAR) {
                     jumpToNextAndAddIntent(writer, nestCntr);
                 }
             } else if (current == Config.WRAP_END) {
@@ -52,7 +52,7 @@ public class Formatter {
         writer.write(Config.LINE_JUMP_CHAR);
         for (int i = 0; i < cntr; i++) {
             for (int j = 0; j < Config.INDENT_NUM; j++) {
-                writer.write(Config.INTENT_CHAR);
+                writer.write(Config.INDENT_CHAR);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Formatter {
         char c = ' ';
         while (reader.hasNext()) {
             c = reader.read();
-            if (c != Config.INTENT_CHAR && c != Config.LINE_JUMP_CHAR) {
+            if (c != Config.INDENT_CHAR && c != Config.LINE_JUMP_CHAR) {
                 return c;
             }
         }

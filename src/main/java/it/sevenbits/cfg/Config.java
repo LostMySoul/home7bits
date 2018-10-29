@@ -26,7 +26,7 @@ public final class Config {
     /**
      * intent char (space)
      */
-    public static final char INTENT_CHAR = ' ';
+    public static final char INDENT_CHAR = ' ';
     /**
      * char that transfer to new string
      */
