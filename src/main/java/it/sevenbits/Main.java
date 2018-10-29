@@ -27,6 +27,6 @@ public final class Main {
         Formatter formatter = new Formatter();
         formatter.format(reader, writer);
         String formatted = writer.getString();
-        System.out.println("Formatted string" + formatted);
+        System.out.println("Formatted string\n" + formatted);
     }
 }
