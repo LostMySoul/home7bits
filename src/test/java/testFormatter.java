@@ -1,78 +1,122 @@
 import it.sevenbits.format.Formatter;
+import it.sevenbits.reader.StringReader;
+import it.sevenbits.writer.StringWriter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class testFormatter {
     @Test
-    public void testFormatStringOneSpaced() {
+    public void testFormatStringWithOnlyBounds(){
+        String toTest = "{{{{{}}}}}";
+        String answer = "{\n" +
+                "    {\n" +
+                "        {\n" +
+                "            {\n" +
+                "                {\n" +
+                "                    \n" +
+                "                }\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter();
-        String ex = "aaa { bbbb; ccc;}";
-        String ex_s = "aaa {\n" +
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
+    }
+
+
+
+
+
+    @Test
+    public void testFormatStringWithOneSpace() {
+        String toTest = "aaa { bbbb; ccc;}";
+        String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
                 "}";
-        assertEquals(formatter.format(ex), ex_s);
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
+        Formatter formatter = new Formatter();
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
 
     @Test
-    public void testFormatStringSpaced() {
-        Formatter formatter = new Formatter();
-        String ex = "aaa {    bbbb; ccc;}";
-        String ex_s = "aaa {\n" +
+    public void testFormatStringWithSpaces() {
+        String toTest = "aaa {    bbbb; ccc;}";
+        String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
                 "}";
-        assertEquals(formatter.format(ex), ex_s);
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
+        Formatter formatter = new Formatter();
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
 
     @Test
-    public void testFormatRandomSpaced() {
-        Formatter formatter = new Formatter();
-        String ex = "aaa { bbbb;    ccc;   }";
-        String ex_s = "aaa {\n" +
+    public void testFormatStringWithRandomNumberOfSpaces() {
+        String toTest = "aaa { bbbb;    ccc;   }";
+        String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
                 "}";
-        assertEquals(formatter.format(ex), ex_s);
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
+        Formatter formatter = new Formatter();
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
 
     @Test
-    public void testFormatOneBigSpacing() {
-        Formatter formatter = new Formatter();
-        String ex = "aaa {            bbbb; ccc;}";
-        String ex_s = "aaa {\n" +
+    public void testFormatStringWithOneBigSpace() {
+        String toTest = "aaa {            bbbb; ccc;}";
+        String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
                 "}";
-        assertEquals(formatter.format(ex), ex_s);
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
+        Formatter formatter = new Formatter();
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
     @Test
-    public void testFormatNesting() {
-        Formatter formatter = new Formatter();
-        String ex = "aaa { aa{aa;}}";
-        String ex_s =
+    public void testFormatStringMoreNesting() {
+        String toTest = "aaa { aa{aa;}}";
+        String answer =
                 "aaa {\n" +
                 "    aa{\n" +
                 "        aa;\n" +
                 "    }\n" +
                 "}";
-        assertEquals(formatter.format(ex), ex_s);
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
+        Formatter formatter = new Formatter();
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
 
     @Test
     public void testFormatAlreadyFormattedString() {
+        String toTest = "aaa {\n" +
+                "    bbbb;\n" +
+                "    ccc;\n" +
+                "}";
+        String answer = "aaa {\n" +
+                "    bbbb;\n" +
+                "    ccc;\n" +
+                "}";
+        StringReader reader = new StringReader(toTest);
+        StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter();
-        String ex = "aaa {\n" +
-                "    bbbb;\n" +
-                "    ccc;\n" +
-                "}";
-        String ex_s = "aaa {\n" +
-                "    bbbb;\n" +
-                "    ccc;\n" +
-                "}";
-        assertEquals(formatter.format(ex), ex_s);
+        formatter.format(reader, writer);
+        assertEquals(answer, writer.getString());
     }
-
 
 }

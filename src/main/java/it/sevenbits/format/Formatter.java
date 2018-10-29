@@ -1,77 +1,70 @@
 package it.sevenbits.format;
 
 import it.sevenbits.cfg.Config;
+import it.sevenbits.reader.IReader;
+import it.sevenbits.writer.IWriter;
 
+/**
+ * class for code formatting
+ */
 public class Formatter {
-
-    public String format(String str) {
-        StringBuilder intentLine = new StringBuilder();
-        for (int i = 0; i < Config.indentNum; i++) {
-            intentLine.append(Config.intentChar);
-        }
-        StringBuilder outer = new StringBuilder();
-        String work = str.trim();
-        boolean newString = false;
+    /**
+     * main format method(only for objects which implements specified Interfaces)
+     *
+     * @param reader - reader object which implements IReader
+     * @param writer - writer object which implements IWriter
+     */
+    public void format(final IReader reader, final IWriter writer) {
         int nestCntr = 0;
-        for (int i = 0; i < work.length(); ) {
-            if (work.charAt(i) == Config.lineBreaker) {
-                appendSymbol(outer, work.charAt(i));
-                if (i + 1 < work.length() && work.charAt(i + 1) != Config.wrapEnd) {
-                    jumpToNextLine(outer);
-                    newString = true;
-                    i = getNextNotSpaceIndex(work, i + 1);
-                } else {
-                    i++;
+        char current = nextNotSpaceSymbol(reader);
+        if (current == Config.INTENT_CHAR) {
+            return;
+        }
+        while (reader.hasNext() || current != Config.INTENT_CHAR) {
+            if (current == Config.LINE_BREAKER) {
+                writer.write(current);
+                current = nextNotSpaceSymbol(reader);
+                if (current != Config.INTENT_CHAR && current != Config.WRAP_END) {
+                    jumpToNextAndAddIntent(writer, nestCntr);
                 }
-            } else if (work.charAt(i) == Config.wrapStart) {
-                appendSymbol(outer, work.charAt(i));
-                jumpToNextLine(outer);
-                newString = true;
+            } else if (current == Config.WRAP_START) {
+                writer.write(current);
                 nestCntr++;
-                /*if (i + 1 < work.length() && work.charAt(i + 1) != Config.wrapEnd)
-                    intentLineWithCounter(outer, intentLine.toString(), nestCntr);*/
-                i = getNextNotSpaceIndex(work, i + 1);
-            } else if (work.charAt(i) == Config.wrapEnd) {
-                if (!newString) {
-                    jumpToNextLine(outer);
-                } else {
-                    newString = false;
+                current = nextNotSpaceSymbol(reader);
+                if (current != Config.INTENT_CHAR) {
+                    jumpToNextAndAddIntent(writer, nestCntr);
                 }
+            } else if (current == Config.WRAP_END) {
                 nestCntr--;
-                intentLineWithCounter(outer, intentLine.toString(), nestCntr);
-                appendSymbol(outer, work.charAt(i));
-                i++;
+                jumpToNextAndAddIntent(writer, nestCntr);
+                writer.write(current);
+                current = nextNotSpaceSymbol(reader);
             } else {
-                if (newString) {
-                    intentLineWithCounter(outer, intentLine.toString(), nestCntr);
-                    newString = false;
-                }
-                appendSymbol(outer, work.charAt(i));
-                i++;
-            }   //TODO:remove big if case
+                writer.write(current);
+                current = reader.read();
+            }
+
         }
-        return outer.toString();
-    }
 
-    private int getNextNotSpaceIndex(String str, int index) {
-        while (index < str.length() && str.charAt(index) == Config.intentChar || str.charAt(index) == Config.lineJumpChar) {
-            index++;
-        }
-        return index;
-    }
+    } //TODO: add checks if inside () or comment
 
-    private void jumpToNextLine(StringBuilder sb) {
-        sb.append(Config.lineJumpChar);
-    }
-
-    private void appendSymbol(StringBuilder sb, char ch) {
-        sb.append(ch);
-    }
-
-    private void intentLineWithCounter(StringBuilder sb, String intenter, int cntr) {
+    private void jumpToNextAndAddIntent(final IWriter writer, final int cntr) {
+        writer.write(Config.LINE_JUMP_CHAR);
         for (int i = 0; i < cntr; i++) {
-            sb.append(intenter);
+            for (int j = 0; j < Config.INDENT_NUM; j++) {
+                writer.write(Config.INTENT_CHAR);
+            }
         }
     }
 
+    private char nextNotSpaceSymbol(final IReader reader) {
+        char c = ' ';
+        while (reader.hasNext()) {
+            c = reader.read();
+            if (c != Config.INTENT_CHAR && c != Config.LINE_JUMP_CHAR) {
+                return c;
+            }
+        }
+        return c;
+    }
 }

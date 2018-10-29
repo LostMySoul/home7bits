@@ -1,18 +1,32 @@
 package it.sevenbits;
 
 import it.sevenbits.format.Formatter;
+import it.sevenbits.reader.StringReader;
+import it.sevenbits.writer.StringWriter;
 
-public class Main {
-    public static void main(String[] args) {
+
+/**
+ * Main application point entry
+ */
+public final class Main {
+    private Main() {
+    }
+
+    /**
+     * Main Function for app
+     *
+     * @param args - console arguments
+     */
+    public static void main(final String[] args) {
         //Improvised main
         //TODO: rework main class
-        String formatted = "aaa {\n" +
-                "    bbbb;\n" +
-                "    ccc;\n" +
-                "}";
-        System.out.println("Formatted string to test:\n" + formatted);
-
+        String str = "{{{{{}}}}}";
+        System.out.println("String to test:\n" + str);
+        StringReader reader = new StringReader(str);
+        StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter();
-        System.out.println("\nFormatted string after formatter:\n" + formatter.format(formatted));
+        formatter.format(reader, writer);
+        String formatted = writer.getString();
+        System.out.println("Formatted string" + formatted);
     }
 }
