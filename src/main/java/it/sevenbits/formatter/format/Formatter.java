@@ -1,8 +1,8 @@
-package it.sevenbits.format;
+package it.sevenbits.formatter.format;
 
-import it.sevenbits.cfg.Config;
-import it.sevenbits.reader.IReader;
-import it.sevenbits.writer.IWriter;
+import it.sevenbits.formatter.cfg.Config;
+import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.writer.IWriter;
 
 /**
  * class for code formatting
@@ -17,9 +17,6 @@ public class Formatter {
     public void format(final IReader reader, final IWriter writer) {
         int nestCntr = 0;
         char current = nextNotSpaceSymbol(reader);
-        if (current == Config.INDENT_CHAR) {
-            return;
-        }
         while (reader.hasNext() || current != Config.INDENT_CHAR) {
             if (current == Config.LINE_BREAKER) {
                 writer.write(current);
@@ -58,7 +55,7 @@ public class Formatter {
     }
 
     private char nextNotSpaceSymbol(final IReader reader) {
-        char c = ' ';
+        char c = Config.INDENT_CHAR;
         while (reader.hasNext()) {
             c = reader.read();
             if (c != Config.INDENT_CHAR && c != Config.LINE_JUMP_CHAR) {

@@ -1,4 +1,4 @@
-package it.sevenbits.cfg;
+package it.sevenbits.formatter.cfg;
 
 /**
  * class with configuration constants

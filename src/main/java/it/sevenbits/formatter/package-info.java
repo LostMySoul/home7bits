@@ -1,3 +1,3 @@
 /**
  * package for main class*/
-package it.sevenbits;
+package it.sevenbits.formatter;

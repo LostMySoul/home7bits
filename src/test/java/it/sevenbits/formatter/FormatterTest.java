@@ -1,11 +1,13 @@
-import it.sevenbits.format.Formatter;
-import it.sevenbits.reader.StringReader;
-import it.sevenbits.writer.StringWriter;
+package it.sevenbits.formatter;
+
+import it.sevenbits.formatter.format.Formatter;
+import it.sevenbits.formatter.reader.StringReader;
+import it.sevenbits.formatter.writer.StringWriter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class testFormatter {
+public class FormatterTest {
     @Test
     public void testFormatStringWithOnlyBounds(){
         String toTest = "{{{{{}}}}}";

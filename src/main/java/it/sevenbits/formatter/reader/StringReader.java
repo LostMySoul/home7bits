@@ -1,4 +1,4 @@
-package it.sevenbits.reader;
+package it.sevenbits.formatter.reader;
 
 /**
  * Implementation of IReader for Strings
@@ -25,12 +25,7 @@ public class StringReader implements IReader {
      * @return true if exist/ false if not
      */
     public boolean hasNext() {
-        try {
-            str.charAt(index);
-            return true;
-        } catch (IndexOutOfBoundsException ex) {
-            return false;
-        }
+        return index < str.length();
     }
 
     /**

@@ -1,8 +1,8 @@
-package it.sevenbits;
+package it.sevenbits.formatter;
 
-import it.sevenbits.format.Formatter;
-import it.sevenbits.reader.StringReader;
-import it.sevenbits.writer.StringWriter;
+import it.sevenbits.formatter.format.Formatter;
+import it.sevenbits.formatter.reader.StringReader;
+import it.sevenbits.formatter.writer.StringWriter;
 
 
 /**

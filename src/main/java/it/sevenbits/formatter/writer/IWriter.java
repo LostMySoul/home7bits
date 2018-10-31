@@ -1,4 +1,4 @@
-package it.sevenbits.writer;
+package it.sevenbits.formatter.writer;
 
 /**
  * interface for writing

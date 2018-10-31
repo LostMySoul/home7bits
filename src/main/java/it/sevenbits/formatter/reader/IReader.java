@@ -1,4 +1,4 @@
-package it.sevenbits.reader;
+package it.sevenbits.formatter.reader;
 
 /**
  * interface for reading
