@@ -1,6 +1,7 @@
 package it.sevenbits.formatter.format;
 
 import it.sevenbits.formatter.cfg.Config;
+import it.sevenbits.formatter.exception.FormatterException;
 import it.sevenbits.formatter.reader.IReader;
 import it.sevenbits.formatter.writer.IWriter;
 
@@ -13,8 +14,9 @@ public class Formatter {
      *
      * @param reader - reader object which implements IReader
      * @param writer - writer object which implements IWriter
+     * @throws FormatterException - throws exception if any problem with formatting appears
      */
-    public void format(final IReader reader, final IWriter writer) {
+    public void format(final IReader reader, final IWriter writer) throws FormatterException {
         int nestCntr = 0;
         char current = nextNotSpaceSymbol(reader);
         while (reader.hasNext() || current != Config.INDENT_CHAR) {
@@ -45,7 +47,7 @@ public class Formatter {
 
     } //TODO: add checks if inside () or comment
 
-    private void jumpToNextAndAddIntent(final IWriter writer, final int cntr) {
+    private void jumpToNextAndAddIntent(final IWriter writer, final int cntr) throws FormatterException {
         writer.write(Config.LINE_JUMP_CHAR);
         for (int i = 0; i < cntr; i++) {
             for (int j = 0; j < Config.INDENT_NUM; j++) {
@@ -54,7 +56,7 @@ public class Formatter {
         }
     }
 
-    private char nextNotSpaceSymbol(final IReader reader) {
+    private char nextNotSpaceSymbol(final IReader reader) throws FormatterException {
         char c = Config.INDENT_CHAR;
         while (reader.hasNext()) {
             c = reader.read();
