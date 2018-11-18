@@ -31,4 +31,12 @@ public final class Config {
      * char that transfer to new string
      */
     public static final char LINE_JUMP_CHAR = '\n';
+    /**
+     * char that transfer to new string
+     * */
+    public static final char BACK_CARET_CHAR = '\r';
+    /**
+     * name of lexeme for single line comment
+     * */
+    public static final String SINGLE_COMMENT_LEXEME_NAME = "SINGLE LINE COMMENT";
 }
