@@ -23,7 +23,7 @@ public final class Main {
      * @throws FormatterException - if any ex-s with formatter occurs
      */
     public static void main(final String[] args) throws FormatterException {
-        FileReader reader = new FileReader("./maintext.txt");
+        FileReader reader = new FileReader("./maintext.txt"); //TODO: do args and add check that args not empty
         FileWriter writer = new FileWriter("./out.txt");
         ILexerFactory factory = new LexerFactory();
         Formatter formatter = new Formatter(factory);
