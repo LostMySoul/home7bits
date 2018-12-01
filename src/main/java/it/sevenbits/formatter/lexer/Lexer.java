@@ -45,7 +45,7 @@ public class Lexer implements ILexer {
             }
             while (reader.hasNext() || (int) current != -1) {
                 logger.info("Current State: " + currentState.toString());
-                lexeme.append(current);
+                LexerBuffer.append(current);
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
                         || current == Config.LINE_BREAKER) {
@@ -54,9 +54,19 @@ public class Lexer implements ILexer {
                     //TODO: DO same with comment like regular line with comment susp and then when comment susp
                     //TODO: was wrong u will add comment(when comment) or add another line (cause u didnt jump to next
                     //TODO: when it was just susp) YEAH!
+                    currentState = stateTransition.nextState(currentState, current);
                     break;
                 } else if (current == Config.STRING_LITER
                         || current == Config.SINGLE_SLASH) {
+                    //ALWAYS SENT CURRENT STATE AND READER TO HANDLER
+                    //IF JUST COMMENT SUSP RETURN NULL
+                    //IF COMMENT MAKE IT FOR LINE END AND APPEND TO BUFFER
+                    //IF COMMENT IT BREAKS CURRENT WHILE
+                    //IF STRING LITER ITS NOT
+                    //FORMATTER WILL HOLD PREVIOUS LEXEME AND IF NEXT LEXEME HAS COMMENT IT WILL APPEND IT
+                    //AND ONLY AFTER APPENDING WILL ADD LINE INTENT
+                    nestCntr++;
+                    currentState = stateTransition.nextState(currentState, current);
                     break;
                     //cmdhandler(reader, state) if state comment or string literal returns
                     //if cmd!=null return new Token....
@@ -68,36 +78,18 @@ public class Lexer implements ILexer {
                     current = reader.read();
                 }
             }
-            currentState = stateTransition.nextState(currentState, current);
         } else {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);
         }
         logger.info("token sent with State: " + currentState.toString());
+        lexeme.append(LexerBuffer.getBuffer());
+        logger.info("current token: " + lexeme.toString());
+        LexerBuffer.clear();
         return new Token(currentState.toString(), lexeme.toString());
     }
     //TODO: Fix when after wrap end char comes line jump char
     //TODO: and then comes another wrap end (now we have 2 jump chars) ?
     //TODO: improve private methods for same code;
-
-    private char nextNotSpaceOrJumpChar() throws FormatterException {
-        char c = ' ';
-        while (reader.hasNext()) {
-            c = reader.read();
-            if (c != Config.INDENT_CHAR && c != Config.LINE_JUMP_CHAR && c != Config.BACK_CARET_CHAR) {
-                break;
-            }
-        }
-        return c;
-    }
-
-    private void addIntentAndJumpToLexeme(final StringBuilder lexeme) {
-        lexeme.append(Config.LINE_JUMP_CHAR);
-        for (int i = 0; i < nestCntr; i++) {
-            for (int j = 0; j < Config.INDENT_NUM; j++) {
-                lexeme.append(Config.INDENT_CHAR);
-            }
-        }
-    }
 
     /**
      * check if some tokens still exists in lexer

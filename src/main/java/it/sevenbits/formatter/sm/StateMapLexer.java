@@ -1,5 +1,7 @@
 package it.sevenbits.formatter.sm;
 
+import it.sevenbits.formatter.cfg.Config;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,18 +17,18 @@ public class StateMapLexer {
         State lineEnd = new State("LINE_END");
         State commenSuspicion = new State("COMMENT_SUSPICION");
         State comment = new State("COMMENT");
-        State stringLiteralStart = new State("STRING_LITERAL");
-        State stringLiteralEnd = new State("STRING_LITERAL_END");
+        State stringLiteral = new State("STRING_LITERAL");
+//        State stringLiteralEnd = new State("STRING_LITERAL_END");
         //states.put(new Pair(currentState, ""), nextState);
-        states.put(new Pair<>(defaultState, '{'), bracketStart);
-        states.put(new Pair<>(bracketStart, '{'), bracketStart);
-        states.put(new Pair<>(defaultState, '}'), bracketEnd);
-        states.put(new Pair<>(bracketEnd, '}'), bracketEnd);
-        states.put(new Pair<>(defaultState, ';'), lineEnd);
-        states.put(new Pair<>(defaultState, '/'), commenSuspicion);
-        states.put(new Pair<>(commenSuspicion, '/'), comment);
-        states.put(new Pair<>(defaultState, '"'), stringLiteralStart);
-        states.put(new Pair<>(stringLiteralStart, '"'), stringLiteralEnd);
+        states.put(new Pair<>(defaultState, Config.WRAP_START), bracketStart);
+        states.put(new Pair<>(bracketStart, Config.WRAP_START), bracketStart);
+        states.put(new Pair<>(defaultState, Config.WRAP_END), bracketEnd);
+        states.put(new Pair<>(bracketEnd, Config.WRAP_END), bracketEnd);
+        states.put(new Pair<>(defaultState, Config.LINE_JUMP_CHAR), lineEnd);
+        states.put(new Pair<>(defaultState, Config.SINGLE_SLASH), commenSuspicion);
+        states.put(new Pair<>(commenSuspicion, Config.SINGLE_SLASH), comment);
+        states.put(new Pair<>(defaultState, Config.STRING_LITER), stringLiteral);
+//        states.put(new Pair<>(stringLiteralStart, Config.STRING_LITER), stringLiteralEnd);
     }
 
     public State getStartState() {

@@ -12,7 +12,7 @@ public class LexerBuffer {
     }
 
     public static void clear() {
-        buffer.delete(0, buffer.length() - 1);
+        buffer.delete(0, buffer.length());
     }
 
     public static String getBuffer() {

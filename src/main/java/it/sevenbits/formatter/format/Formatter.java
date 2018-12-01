@@ -33,6 +33,8 @@ public class Formatter implements IFormatter {
         while (lexer.hasMoreTokens()) {
             write(writer, lexer.readToken().getLexeme());
         }
+        //TODO: before writing store last lexeme in buffer and if next lexeme is comment
+        //TODO: you should write lexeme + comment(trimmed) and only after comment jump to next line
         //old format lower (from lexer)
 
 //            current = reader.read();
@@ -65,7 +67,29 @@ public class Formatter implements IFormatter {
 //                    }
 //                }
 //            }
+//
+//        private char nextNotSpaceOrJumpChar() throws FormatterException {
+//            char c = ' ';
+//            while (reader.hasNext()) {
+//                c = reader.read();
+//                if (c != Config.INDENT_CHAR && c != Config.LINE_JUMP_CHAR && c != Config.BACK_CARET_CHAR) {
+//                    break;
+//                }
+//            }
+//            return c;
+//        }
+//
+//        private void addIntentAndJumpToLexeme(final StringBuilder lexeme) {
+//            lexeme.append(Config.LINE_JUMP_CHAR);
+//            for (int i = 0; i < nestCntr; i++) {
+//                for (int j = 0; j < Config.INDENT_NUM; j++) {
+//                    lexeme.append(Config.INDENT_CHAR);
+//                }
+//            }
+//        }
+
         //commandhandler and get lexeme from LexerBuffer to return new Token
+
     } //TODO: add checks if inside "" or comment
 
     private void write(final IWriter writer, final String str) throws FormatterException {
