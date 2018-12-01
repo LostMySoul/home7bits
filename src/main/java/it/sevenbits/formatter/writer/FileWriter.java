@@ -18,7 +18,7 @@ public class FileWriter implements IWriter, AutoCloseable {
      * */
     public FileWriter(final String path) throws FormatterException {
         try {
-            bw = new BufferedWriter(new java.io.FileWriter(path));
+            bw = new BufferedWriter(new java.io.FileWriter(path)); //TODO: set charset
         } catch (IOException ex) {
             throw new FormatterException(FormatterErrorCode.ERROR_READING_FILE, ex);
         }

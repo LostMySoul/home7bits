@@ -11,18 +11,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class LexerTest {
-    @Test
-    public void testLexer() throws FormatterException {
-        FileReader fr = new FileReader("./src/test/java/it/sevenbits/formatter/testLexer.txt");
-        Lexer lexer = new Lexer(fr);
-        IToken token = lexer.readToken();
-        String answer = "aaa {\n" +
-                "    bbbb;\n" +
-                "    ccc;\n" +
-                "}";
-        assertEquals(answer, token.getLexeme());
-        assertEquals("BeforeWrapEndLexeme", token.getName());
-    }
+//    @Test
+//    public void testLexerFULLLEXEME() throws FormatterException {
+//        FileReader fr = new FileReader("./src/test/java/it/sevenbits/formatter/testLexer.txt");
+//        Lexer lexer = new Lexer(fr);
+//        IToken token = lexer.readToken();
+//        String answer = "aaa {\n" +
+//                "    bbbb;\n" +
+//                "    ccc;\n" +
+//                "}";
+//        assertEquals(answer, token.getLexeme());
+//        assertEquals("BeforeWrapEndLexeme", token.getName());
+//    } OLD
 
     @Test
     public void testLexerMock() throws FormatterException {

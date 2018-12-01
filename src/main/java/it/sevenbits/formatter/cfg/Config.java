@@ -36,7 +36,11 @@ public final class Config {
      * */
     public static final char BACK_CARET_CHAR = '\r';
     /**
-     * name of lexeme for single line comment
+     * slash char
      * */
-    public static final String SINGLE_COMMENT_LEXEME_NAME = "SINGLE LINE COMMENT";
+    public static final char SINGLE_SLASH = '/';
+    /**
+     * char for string liter
+     * */
+    public static final char STRING_LITER = '"';
 }

@@ -1,6 +1,5 @@
 package it.sevenbits.formatter;
 
-import it.sevenbits.formatter.cfg.Config;
 import it.sevenbits.formatter.exception.FormatterException;
 import it.sevenbits.formatter.format.Formatter;
 import it.sevenbits.formatter.lexer.ILexerFactory;

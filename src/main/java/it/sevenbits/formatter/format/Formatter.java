@@ -33,7 +33,40 @@ public class Formatter implements IFormatter {
         while (lexer.hasMoreTokens()) {
             write(writer, lexer.readToken().getLexeme());
         }
-    } //TODO: add checks if inside () or comment
+        //old format lower (from lexer)
+
+//            current = reader.read();
+//            while ((reader.hasNext() || current != Config.INDENT_CHAR) && current != '\uFFFF') {
+//                if (current == Config.LINE_BREAKER) {
+//                    lexeme.append(current);
+//                    current = nextNotSpaceOrJumpChar();
+//                    if (current != Config.WRAP_END) {
+//                        addIntentAndJumpToLexeme(lexeme);
+//                    }
+//                } else if (current == Config.WRAP_START) {
+//                    lexeme.append(current);
+//                    nestCntr++;
+//                    current = nextNotSpaceOrJumpChar();
+//                    addIntentAndJumpToLexeme(lexeme);
+//                } else if (current == Config.WRAP_END) {
+//                    nestCntr--;
+//                    addIntentAndJumpToLexeme(lexeme);
+//                    lexeme.append(current);
+//                    current = Config.INDENT_CHAR;
+//                    if (reader.hasNext()) {
+//                        current = reader.read();
+//                    }
+//                    return new Token("BeforeWrapEndLexeme", lexeme.toString());
+//                } else {
+//                    lexeme.append(current);
+//                    current = Config.INDENT_CHAR;
+//                    if (reader.hasNext()) {
+//                        current = reader.read();
+//                    }
+//                }
+//            }
+        //commandhandler and get lexeme from LexerBuffer to return new Token
+    } //TODO: add checks if inside "" or comment
 
     private void write(final IWriter writer, final String str) throws FormatterException {
         for (int i = 0; i < str.length(); i++) {

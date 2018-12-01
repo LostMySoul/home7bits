@@ -8,8 +8,8 @@ public class StateTransitionLexer {
         this.stateMap = new StateMapLexer();
     }
 
-    public State nextState(final State state, final String lexemeName) {
-        return stateMap.getNextState(state, lexemeName);
+    public State nextState(final State state, final char ch) {
+        return stateMap.getNextState(state, ch);
     }
 
     public State getStartState() {

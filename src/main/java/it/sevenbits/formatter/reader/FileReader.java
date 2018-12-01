@@ -21,7 +21,7 @@ public class FileReader implements IReader, AutoCloseable {
      */
     public FileReader(final String path) throws FormatterException {
         try {
-            br = new BufferedReader(new java.io.FileReader(path));
+            br = new BufferedReader(new java.io.FileReader(path)); //TODO: set charset
             lastchar = br.read();
         } catch (IOException ex) {
             throw new FormatterException(FormatterErrorCode.ERROR_READING_FILE, ex);

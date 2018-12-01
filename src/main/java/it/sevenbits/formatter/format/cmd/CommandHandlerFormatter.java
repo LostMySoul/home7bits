@@ -9,4 +9,5 @@ public class CommandHandlerFormatter {
 
     //public handle(State state, String lexemeName){}
     //for every command class with cmd
+    //add static class buffer(lexer\formatter) to work with bufferedLexeme\char
 }
