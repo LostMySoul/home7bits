@@ -16,7 +16,7 @@ public class testSM {
 
     @Test
     public void testFormat() throws FormatterException {
-        String toTest = "{{{{{ \"   //   \" }}}}}";
+        String toTest = "{{{{{     \"   //   \" // }}}}}";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);

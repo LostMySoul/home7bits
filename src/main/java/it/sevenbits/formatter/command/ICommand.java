@@ -1,5 +1,7 @@
 package it.sevenbits.formatter.command;
 
+import it.sevenbits.formatter.exception.FormatterException;
+
 /**
  * interface for commands
  */
@@ -9,5 +11,5 @@ public interface ICommand {
     /**
      * main command method
      */
-    void execute();
+    void execute() throws FormatterException;
 }

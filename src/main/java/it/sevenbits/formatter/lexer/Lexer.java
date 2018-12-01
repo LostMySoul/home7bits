@@ -1,8 +1,10 @@
 package it.sevenbits.formatter.lexer;
 
 import it.sevenbits.formatter.cfg.Config;
+import it.sevenbits.formatter.command.ICommand;
 import it.sevenbits.formatter.exception.FormatterErrorCode;
 import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.lexer.cmd.CommandHandlerLexer;
 import it.sevenbits.formatter.reader.IReader;
 import it.sevenbits.formatter.sm.State;
 import it.sevenbits.formatter.sm.StateTransitionLexer;
@@ -16,6 +18,7 @@ public class Lexer implements ILexer {
     private IReader reader;
     private int nestCntr = 0;
     private char current;
+    private final CommandHandlerLexer commandHandler;
     private final StateTransitionLexer stateTransition = new StateTransitionLexer();
     private State currentState = stateTransition.getStartState();
     private final Logger logger = LoggerFactory.getLogger(Lexer.class);
@@ -27,6 +30,7 @@ public class Lexer implements ILexer {
      */
     public Lexer(final IReader reader) {
         this.reader = reader;
+        commandHandler = new CommandHandlerLexer(reader);
     }
 
     /**
@@ -38,6 +42,7 @@ public class Lexer implements ILexer {
     public IToken readToken() throws FormatterException {
 
         StringBuilder lexeme = new StringBuilder();
+        ICommand command = null;
         if (hasMoreTokens()) {
             current = reader.read();
             if (current != Config.STRING_LITER && current != Config.SINGLE_SLASH) {
@@ -67,7 +72,14 @@ public class Lexer implements ILexer {
                     //AND ONLY AFTER APPENDING WILL ADD LINE INTENT
                     nestCntr++;
                     currentState = stateTransition.nextState(currentState, current);
-                    break;
+                    command = commandHandler.getCommand(currentState);
+                    if (command != null) {
+                        command.execute();
+                    }
+                    if (currentState.toString().equals("COMMENT") || currentState.toString().equals("STRING_LITERAL")) {
+                        break;
+                    }
+                    current = reader.read();
                     //cmdhandler(reader, state) if state comment or string literal returns
                     //if cmd!=null return new Token....
                     //if comment susp return null command and do NOTHING
