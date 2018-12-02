@@ -16,12 +16,25 @@ public class testSM {
 
     @Test
     public void testFormat1() throws FormatterException {
-        String toTest = "{{                 {{    {     \"   //   \" ; // comment HEH\n\r\t\n    }}}}}";
+        String toTest = "function1(){function2(){                 function3(){function4(){    " +
+                "function5(){     \"   //   \" ;                                // comment HEH\n\r\t\n    }}}}}";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
         formatter.format(reader, writer);
         System.out.println(writer.getString());
+        String ans = "function1(){\n" +
+                "    function2(){\n" +
+                "        function3(){\n" +
+                "            function4(){\n" +
+                "                function5(){\n" +
+                "                    \"   //   \" ;    // comment HEH\n" +
+                "                }\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}\n";
+        assertEquals(ans, writer.getString());
     }
 
     @Test

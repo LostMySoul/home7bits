@@ -15,12 +15,15 @@ public class CommentCommand implements ICommand {
     }
 
     @Override
-    public void execute() {//TODO:WORKS WITH BUFFER PREVIOUS
+    public void execute() {
         String prev = FormatterBuffer.getPreviousLexeme();
-        String comment = FormatterBuffer.getBuffer();
+        String comment = FormatterBuffer.getBuffer().trim();
         if (prev != null && prev.length() != 0) {
             StringBuilder sb = new StringBuilder(prev);
             sb.delete(sb.length() - 1, sb.length());
+            for (int i = 0; i < Config.INDENT_NUM; i++) {
+                sb.append(Config.INDENT_CHAR);
+            }
             sb.append(comment);
             FormatterBuffer.setPreviousLexeme(sb.toString() + Config.LINE_JUMP_CHAR);
             FormatterBuffer.setBuffer(new StringBuilder());
