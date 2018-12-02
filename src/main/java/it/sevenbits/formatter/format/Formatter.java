@@ -1,16 +1,28 @@
 package it.sevenbits.formatter.format;
 
+import it.sevenbits.formatter.command.ICommand;
 import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.format.cmd.CommandHandlerFormatter;
 import it.sevenbits.formatter.lexer.ILexer;
 import it.sevenbits.formatter.lexer.ILexerFactory;
+import it.sevenbits.formatter.lexer.IToken;
 import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.sm.State;
+import it.sevenbits.formatter.sm.StateTransitionFormatter;
 import it.sevenbits.formatter.writer.IWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * class for code formatting
  */
 public class Formatter implements IFormatter {
     private final ILexerFactory lexerFactory;
+    //    private final CommandHandlerFormatter commandHandler;
+    private final StateTransitionFormatter stateTransition = new StateTransitionFormatter();
+    private State currentState = stateTransition.getStartState();
+    private final Logger logger = LoggerFactory.getLogger(Formatter.class);
+
 
     /**
      * constructor for Formatter
@@ -19,6 +31,7 @@ public class Formatter implements IFormatter {
      */
     public Formatter(final ILexerFactory lexerFactory) {
         this.lexerFactory = lexerFactory;
+//        commandHandler =
     }
 
     /**
@@ -30,8 +43,15 @@ public class Formatter implements IFormatter {
      */
     public void format(final IReader reader, final IWriter writer) throws FormatterException {
         ILexer lexer = lexerFactory.createLexer(reader);
+        ICommand command;
+        IToken token;
         while (lexer.hasMoreTokens()) {
-            write(writer, lexer.readToken().getLexeme());
+            token = lexer.readToken();
+            currentState = stateTransition.nextState(currentState, token.getName());
+            logger.info("FORMATTER STATE: " + currentState.toString());
+
+
+            write(writer, token.getLexeme());
         }
         //TODO: before writing store last lexeme in buffer and if next lexeme is comment
         //TODO: you should write lexeme + comment(trimmed) and only after comment jump to next line

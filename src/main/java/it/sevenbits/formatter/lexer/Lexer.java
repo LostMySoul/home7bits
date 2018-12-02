@@ -42,7 +42,7 @@ public class Lexer implements ILexer {
     public IToken readToken() throws FormatterException {
 
         StringBuilder lexeme = new StringBuilder();
-        ICommand command = null;
+        ICommand command;
         if (hasMoreTokens()) {
             current = reader.read();
             if (current != Config.STRING_LITER && current != Config.SINGLE_SLASH) {
@@ -54,38 +54,20 @@ public class Lexer implements ILexer {
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
                         || current == Config.LINE_BREAKER) {
-                    //TODO: add CMD to formatter for line with STRING LITER START then
-                    //TODO: STRING LITER END and then u just append to out regular line exc moments when code is wrong
-                    //TODO: DO same with comment like regular line with comment susp and then when comment susp
-                    //TODO: was wrong u will add comment(when comment) or add another line (cause u didnt jump to next
-                    //TODO: when it was just susp) YEAH!
                     currentState = stateTransition.nextState(currentState, current);
                     break;
                 } else if (current == Config.STRING_LITER
                         || current == Config.SINGLE_SLASH) {
-                    //ALWAYS SENT CURRENT STATE AND READER TO HANDLER
-                    //IF JUST COMMENT SUSP RETURN NULL
-                    //IF COMMENT MAKE IT FOR LINE END AND APPEND TO BUFFER
-                    //IF COMMENT IT BREAKS CURRENT WHILE
-                    //IF STRING LITER ITS NOT
-                    //FORMATTER WILL HOLD PREVIOUS LEXEME AND IF NEXT LEXEME HAS COMMENT IT WILL APPEND IT
-                    //AND ONLY AFTER APPENDING WILL ADD LINE INTENT
                     nestCntr++;
                     currentState = stateTransition.nextState(currentState, current);
                     command = commandHandler.getCommand(currentState);
                     if (command != null) {
                         command.execute();
                     }
-                    if (currentState.toString().equals("COMMENT") || currentState.toString().equals("STRING_LITERAL")) {
+                    if (currentState.toString().equals("COMMENT")) {
                         break;
                     }
                     current = reader.read();
-                    //cmdhandler(reader, state) if state comment or string literal returns
-                    //if cmd!=null return new Token....
-                    //if comment susp return null command and do NOTHING
-                    //if full comment returns TOKEN with part like "/LEXEME" NO JUMP\CARET_BACK CHAR AT END
-                    //cmd for string literal and comment
-                    //TODO: rework with cmd
                 } else {
                     current = reader.read();
                 }
@@ -93,16 +75,12 @@ public class Lexer implements ILexer {
         } else {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);
         }
-        logger.info("token sent with State: " + currentState.toString());
         lexeme.append(LexerBuffer.getBuffer());
         logger.info("current token: " + lexeme.toString());
+        logger.info("token sent with State: " + currentState.toString());
         LexerBuffer.clear();
         return new Token(currentState.toString(), lexeme.toString());
     }
-    //TODO: Fix when after wrap end char comes line jump char
-    //TODO: and then comes another wrap end (now we have 2 jump chars) ?
-    //TODO: improve private methods for same code;
-
     /**
      * check if some tokens still exists in lexer
      *

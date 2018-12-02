@@ -6,9 +6,16 @@ import it.sevenbits.formatter.exception.FormatterException;
 import it.sevenbits.formatter.lexer.LexerBuffer;
 import it.sevenbits.formatter.reader.IReader;
 
+/**
+ * command for string literal
+ */
 public class LiteralCommand implements ICommand {
     private IReader reader;
 
+    /**
+     * constructor for string literal command
+     * @param reader - set reader for cmd
+     */
     public LiteralCommand(final IReader reader) {
         this.reader = reader;
     }
@@ -25,6 +32,5 @@ public class LiteralCommand implements ICommand {
             }
             LexerBuffer.append(current);
         }
-        //work with LexerBuffer
     }
 }
