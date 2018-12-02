@@ -7,7 +7,7 @@ import it.sevenbits.formatter.lexer.LexerBuffer;
 import it.sevenbits.formatter.reader.IReader;
 
 /**
- * command for string literal
+ * Lexer command for string literal
  */
 public class LiteralCommand implements ICommand {
     private IReader reader;

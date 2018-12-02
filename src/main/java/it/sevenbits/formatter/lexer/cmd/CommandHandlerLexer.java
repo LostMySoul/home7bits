@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class CommandHandlerLexer {
     private final Map<State, ICommand> commandMap;
-
     /**
      * constructor for cmdHandler that sets map with commands
      *

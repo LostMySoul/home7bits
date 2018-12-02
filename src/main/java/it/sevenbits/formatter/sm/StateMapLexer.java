@@ -13,7 +13,7 @@ public class StateMapLexer {
     private final Map<Pair<State, Character>, State> states;
 
     /**
-     * constructor that sets map for states
+     * constructor that sets map for Lexer states
      */
     public StateMapLexer() {
         states = new HashMap<>();

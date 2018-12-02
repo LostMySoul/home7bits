@@ -4,8 +4,10 @@ package it.sevenbits.formatter.format;
  * class with buffer for formatter
  */
 public final class FormatterBuffer {
+    private static String previousLexeme;
     private static StringBuilder buffer = new StringBuilder();
     private static int currentNesting = 0;
+
 
     private FormatterBuffer() {
     }
@@ -60,5 +62,13 @@ public final class FormatterBuffer {
      */
     public static void decreaseNesting() {
         currentNesting--;
+    }
+
+    public static void setPreviousLexeme(final String previousLexeme) {
+        FormatterBuffer.previousLexeme = previousLexeme;
+    }
+
+    public static String getPreviousLexeme() {
+        return previousLexeme;
     }
 }

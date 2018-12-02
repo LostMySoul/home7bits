@@ -11,10 +11,8 @@ import java.util.Map;
  */
 public class CommandHandlerFormatter {
     private final Map<State, ICommand> commandMap;
-    //private map
     /**
      * constructor for cmdHandler that sets map with commands
-     *
      */
     public CommandHandlerFormatter() {
         commandMap = new HashMap<>();
@@ -22,8 +20,11 @@ public class CommandHandlerFormatter {
         State bracketStart = new State("BRACKET_START"); //formBuff increaseNesting
         State bracketEnd = new State("BRACKET_END");
         State regLine = new State("REGULAR_LINE");
-
-        //assign command map
+        commandMap.put(comment, new CommentCommand());
+        commandMap.put(bracketStart, new BracketStartCommand());
+        commandMap.put(bracketEnd, new BracketEndCommand());
+        commandMap.put(regLine, new RegLineCommand());
+        //works with buffered lexeme in formBuff
     }
 
     /**

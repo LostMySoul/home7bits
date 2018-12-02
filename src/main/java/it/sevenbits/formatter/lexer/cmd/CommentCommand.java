@@ -7,7 +7,7 @@ import it.sevenbits.formatter.lexer.LexerBuffer;
 import it.sevenbits.formatter.reader.IReader;
 
 /**
- * command for comment
+ * Lexer command for comment
  */
 public class CommentCommand implements ICommand {
     private IReader reader;

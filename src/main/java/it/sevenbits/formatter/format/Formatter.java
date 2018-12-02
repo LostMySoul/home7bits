@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Formatter implements IFormatter {
     private final ILexerFactory lexerFactory;
-    //    private final CommandHandlerFormatter commandHandler;
+    private final CommandHandlerFormatter commandHandler;
     private final StateTransitionFormatter stateTransition = new StateTransitionFormatter();
     private State currentState = stateTransition.getStartState();
     private final Logger logger = LoggerFactory.getLogger(Formatter.class);
@@ -31,7 +31,7 @@ public class Formatter implements IFormatter {
      */
     public Formatter(final ILexerFactory lexerFactory) {
         this.lexerFactory = lexerFactory;
-//        commandHandler =
+        commandHandler = new CommandHandlerFormatter();
     }
 
     /**
@@ -49,7 +49,11 @@ public class Formatter implements IFormatter {
             token = lexer.readToken();
             currentState = stateTransition.nextState(currentState, token.getName());
             logger.info("FORMATTER STATE: " + currentState.toString());
-
+            command = commandHandler.getCommand(currentState);
+            if (command != null) {
+                command.execute();
+                logger.warn("command executed");
+            }
 
             write(writer, token.getLexeme());
         }

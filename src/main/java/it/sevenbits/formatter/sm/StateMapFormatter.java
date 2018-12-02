@@ -1,14 +1,17 @@
 package it.sevenbits.formatter.sm;
 
-import it.sevenbits.formatter.cfg.Config;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * class with states for formatter
+ */
 public class StateMapFormatter {
     private final State defaultState = new State("FORMATTING");
     private final Map<Pair<State, String>, State> states;
-
+    /**
+     * constructor that sets map for formatter states
+     */
     public StateMapFormatter() {
         states = new HashMap<>();
         State comment = new State("COMMENT");
@@ -30,10 +33,22 @@ public class StateMapFormatter {
         states.put(new Pair<>(regLine, "COMMENT"), comment);
     }
 
+    /**
+     * method to get start(default) state
+     *
+     * @return start state
+     */
     public State getStartState() {
         return defaultState;
     }
 
+    /**
+     * method to get next state
+     *
+     * @param state     - get from this state
+     * @param stateName - to state assigned to current string in map
+     * @return next state
+     */
     public State getNextState(final State state, final String stateName) {
         return states.getOrDefault(new Pair<>(state, stateName), defaultState);
     }
