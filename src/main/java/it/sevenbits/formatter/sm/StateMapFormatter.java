@@ -7,7 +7,7 @@ import java.util.Map;
  * class with states for formatter
  */
 public class StateMapFormatter {
-    private final State defaultState = new State("FORMATTING");
+    private final State defaultState = new State("WAITING");
     private final Map<Pair<State, String>, State> states;
     /**
      * constructor that sets map for formatter states
@@ -30,6 +30,7 @@ public class StateMapFormatter {
         states.put(new Pair<>(bracketEnd, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(defaultState, "COMMENT"), comment);
         states.put(new Pair<>(defaultState, "REGULAR_LINE"), regLine);
+        states.put(new Pair<>(regLine, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(regLine, "COMMENT"), comment);
     }
 

@@ -20,7 +20,7 @@ public class Formatter implements IFormatter {
     private final ILexerFactory lexerFactory;
     private final CommandHandlerFormatter commandHandler;
     private final StateTransitionFormatter stateTransition = new StateTransitionFormatter();
-    private State currentState = stateTransition.getStartState();
+    private State currentState;
     private final Logger logger = LoggerFactory.getLogger(Formatter.class);
 
 
@@ -43,6 +43,8 @@ public class Formatter implements IFormatter {
      */
     public void format(final IReader reader, final IWriter writer) throws FormatterException {
         ILexer lexer = lexerFactory.createLexer(reader);
+        currentState = stateTransition.getStartState();
+        logger.info("FORMATTER STATE: " + currentState.toString());
         ICommand command;
         IToken token;
         while (lexer.hasMoreTokens()) {
