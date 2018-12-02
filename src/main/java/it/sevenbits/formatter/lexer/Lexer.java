@@ -49,7 +49,7 @@ public class Lexer implements ILexer {
                 currentState = stateTransition.nextState(currentState, current);
             }
             while (reader.hasNext() || (int) current != -1) {
-                logger.info("Current State: " + currentState.toString());
+                logger.debug("Current State: " + currentState.toString());
                 LexerBuffer.append(current);
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
@@ -76,8 +76,8 @@ public class Lexer implements ILexer {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);
         }
         lexeme.append(LexerBuffer.getBuffer());
-        logger.info("current token: " + lexeme.toString());
-        logger.info("token sent with State: " + currentState.toString());
+        logger.debug("current token: " + lexeme.toString());
+        logger.debug("token sent with State: " + currentState.toString());
         LexerBuffer.clear();
         return new Token(currentState.toString(), lexeme.toString());
     }

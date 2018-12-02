@@ -22,7 +22,6 @@ public class CommentCommand implements ICommand {
 
     @Override
     public void execute() throws FormatterException {
-        System.out.println("comment");
         char current;
         while (reader.hasNext()) {
             current = reader.read();

@@ -31,9 +31,9 @@ public final class FormatterBuffer {
     }
 
     /**
-     * method to clear buffer
+     * method to clearBuffer buffer
      */
-    public static void clear() {
+    public static void clearBuffer() {
         buffer.delete(0, buffer.length());
     }
 
@@ -43,7 +43,14 @@ public final class FormatterBuffer {
      * @return buffer as string
      */
     public static String getBuffer() {
+        if (buffer.length() == 0) {
+            return null;
+        }
         return buffer.toString();
+    }
+
+    public static void setBuffer(final StringBuilder buffer) {
+        FormatterBuffer.buffer = buffer;
     }
 
     public static int getCurrentNesting() {

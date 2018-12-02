@@ -28,7 +28,7 @@ public final class LexerBuffer {
     }
 
     /**
-     * method to clear buffer
+     * method to clearBuffer buffer
      */
     public static void clear() {
         buffer.delete(0, buffer.length());

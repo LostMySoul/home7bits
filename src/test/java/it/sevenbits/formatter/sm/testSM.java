@@ -16,13 +16,12 @@ public class testSM {
 
     @Test
     public void testFormat1() throws FormatterException {
-        String toTest = "{{{{{     \"   //   \" ; // \n    }}}}}";
+        String toTest = "{{                 {{    {     \"   //   \" ; // comment HEH\n\r\t\n    }}}}}";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
         formatter.format(reader, writer);
         System.out.println(writer.getString());
-//        assertEquals(toTest, writer.getString()); //now doesnt work cause commentCMD doesnt add line jump
     }
 
     @Test

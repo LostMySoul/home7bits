@@ -44,78 +44,33 @@ public class Formatter implements IFormatter {
     public void format(final IReader reader, final IWriter writer) throws FormatterException {
         ILexer lexer = lexerFactory.createLexer(reader);
         currentState = stateTransition.getStartState();
-        logger.info("FORMATTER STATE: " + currentState.toString());
+        logger.debug("FORMATTER STATE: " + currentState.toString());
         ICommand command;
         IToken token;
+        String oldBuffer;
         while (lexer.hasMoreTokens()) {
             token = lexer.readToken();
+            oldBuffer = FormatterBuffer.getBuffer();
+            FormatterBuffer.setPreviousLexeme(oldBuffer);
+
+            FormatterBuffer.clearBuffer();
+            FormatterBuffer.append(token.getLexeme());
             currentState = stateTransition.nextState(currentState, token.getName());
-            logger.info("FORMATTER STATE: " + currentState.toString());
+            logger.debug("FORMATTER STATE: " + currentState.toString());
             command = commandHandler.getCommand(currentState);
             if (command != null) {
                 command.execute();
-                logger.warn("command executed");
+                logger.debug("command executed");
             }
-
-            write(writer, token.getLexeme());
+            String previous = FormatterBuffer.getPreviousLexeme();
+            if (previous != null) {
+                write(writer, FormatterBuffer.getPreviousLexeme());
+            }
         }
-        //TODO: before writing store last lexeme in buffer and if next lexeme is comment
-        //TODO: you should write lexeme + comment(trimmed) and only after comment jump to next line
-        //old format lower (from lexer)
-
-//            current = reader.read();
-//            while ((reader.hasNext() || current != Config.INDENT_CHAR) && current != '\uFFFF') {
-//                if (current == Config.LINE_BREAKER) {
-//                    lexeme.append(current);
-//                    current = nextNotSpaceOrJumpChar();
-//                    if (current != Config.WRAP_END) {
-//                        addIntentAndJumpToLexeme(lexeme);
-//                    }
-//                } else if (current == Config.WRAP_START) {
-//                    lexeme.append(current);
-//                    nestCntr++;
-//                    current = nextNotSpaceOrJumpChar();
-//                    addIntentAndJumpToLexeme(lexeme);
-//                } else if (current == Config.WRAP_END) {
-//                    nestCntr--;
-//                    addIntentAndJumpToLexeme(lexeme);
-//                    lexeme.append(current);
-//                    current = Config.INDENT_CHAR;
-//                    if (reader.hasNext()) {
-//                        current = reader.read();
-//                    }
-//                    return new Token("BeforeWrapEndLexeme", lexeme.toString());
-//                } else {
-//                    lexeme.append(current);
-//                    current = Config.INDENT_CHAR;
-//                    if (reader.hasNext()) {
-//                        current = reader.read();
-//                    }
-//                }
-//            }
-//
-//        private char nextNotSpaceOrJumpChar() throws FormatterException {
-//            char c = ' ';
-//            while (reader.hasNext()) {
-//                c = reader.read();
-//                if (c != Config.INDENT_CHAR && c != Config.LINE_JUMP_CHAR && c != Config.BACK_CARET_CHAR) {
-//                    break;
-//                }
-//            }
-//            return c;
-//        }
-//
-//        private void addIntentAndJumpToLexeme(final StringBuilder lexeme) {
-//            lexeme.append(Config.LINE_JUMP_CHAR);
-//            for (int i = 0; i < nestCntr; i++) {
-//                for (int j = 0; j < Config.INDENT_NUM; j++) {
-//                    lexeme.append(Config.INDENT_CHAR);
-//                }
-//            }
-//        }
-
-        //commandhandler and get lexeme from LexerBuffer to return new Token
-
+        oldBuffer = FormatterBuffer.getBuffer();
+        if (oldBuffer != null) {
+            write(writer, oldBuffer);
+        }
     } //TODO: add checks if inside "" or comment
 
     private void write(final IWriter writer, final String str) throws FormatterException {

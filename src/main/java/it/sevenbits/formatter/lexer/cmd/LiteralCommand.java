@@ -22,7 +22,6 @@ public class LiteralCommand implements ICommand {
 
     @Override
     public void execute() throws FormatterException {
-        System.out.println("literal");
         char current;
         while (reader.hasNext()) {
             current = reader.read();
