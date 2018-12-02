@@ -18,14 +18,13 @@ public class CommandHandlerFormatter {
         commandMap = new HashMap<>();
         State comment = new State("COMMENT");
         //TODO: MB ADD STATE COMMENT AFTER COMMENT(needed or not?)
-        State bracketStart = new State("BRACKET_START"); //formBuff increaseNesting
+        State bracketStart = new State("BRACKET_START");
         State bracketEnd = new State("BRACKET_END");
         State regLine = new State("REGULAR_LINE");
         commandMap.put(comment, new CommentCommand());
         commandMap.put(bracketStart, new BracketStartCommand());
         commandMap.put(bracketEnd, new BracketEndCommand());
         commandMap.put(regLine, new RegLineCommand());
-        //works with buffered lexeme in formBuff
     }
 
     /**

@@ -4,7 +4,10 @@ import it.sevenbits.formatter.exception.FormatterErrorCode;
 import it.sevenbits.formatter.exception.FormatterException;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 /**
  * implementation of IReader to work with file
@@ -21,7 +24,7 @@ public class FileReader implements IReader, AutoCloseable {
      */
     public FileReader(final String path) throws FormatterException {
         try {
-            br = new BufferedReader(new java.io.FileReader(path)); //TODO: set charset
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("UTF-8")));
             lastchar = br.read();
         } catch (IOException ex) {
             throw new FormatterException(FormatterErrorCode.ERROR_READING_FILE, ex);

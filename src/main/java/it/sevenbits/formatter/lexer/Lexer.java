@@ -69,18 +69,20 @@ public class Lexer implements ILexer {
                     }
                     current = reader.read();
                 } else {
-                    current = reader.read();
+                    if (reader.hasNext()) {
+                        current = reader.read();
+                    }
                 }
             }
         } else {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);
         }
         lexeme.append(LexerBuffer.getBuffer());
-        logger.debug("current token: " + lexeme.toString());
-        logger.debug("token sent with State: " + currentState.toString());
+        logger.info("sent token: \n" + lexeme.toString() + "\ntoken sent with State: " + currentState.toString());
         LexerBuffer.clear();
         return new Token(currentState.toString(), lexeme.toString());
     }
+
     /**
      * check if some tokens still exists in lexer
      *

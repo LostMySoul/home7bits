@@ -68,7 +68,7 @@ public final class FormatterBuffer {
      * method to decrease current nesting
      */
     public static void decreaseNesting() {
-        currentNesting--;
+        currentNesting -= 1;
     }
 
     public static void setPreviousLexeme(final String previousLexeme) {

@@ -56,7 +56,7 @@ public class Formatter implements IFormatter {
             FormatterBuffer.clearBuffer();
             FormatterBuffer.append(token.getLexeme());
             currentState = stateTransition.nextState(currentState, token.getName());
-            logger.debug("FORMATTER STATE: " + currentState.toString());
+            logger.info("FORMATTER STATE: " + currentState.toString());
             command = commandHandler.getCommand(currentState);
             if (command != null) {
                 command.execute();
