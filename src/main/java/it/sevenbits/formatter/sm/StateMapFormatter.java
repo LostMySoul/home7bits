@@ -24,16 +24,19 @@ public class StateMapFormatter {
         states.put(new Pair<>(comment, "BRACKET_START"), bracketStart);
         states.put(new Pair<>(bracketStart, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(bracketStart, "BRACKET_END"), bracketEnd);
+
         states.put(new Pair<>(defaultState, "BRACKET_END"), bracketEnd);
         states.put(new Pair<>(bracketEnd, "BRACKET_END"), bracketEnd);
         states.put(new Pair<>(regLine, "BRACKET_END"), bracketEnd);
         states.put(new Pair<>(comment, "BRACKET_END"), bracketEnd);
         states.put(new Pair<>(bracketEnd, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(bracketEnd, "BRACKET_START"), bracketStart);
+
         states.put(new Pair<>(defaultState, "COMMENT"), comment);
         states.put(new Pair<>(defaultState, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(regLine, "REGULAR_LINE"), regLine);
         states.put(new Pair<>(regLine, "COMMENT"), comment);
+        states.put(new Pair<>(comment, "REGULAR_LINE"), regLine);
     }
 
     /**

@@ -18,7 +18,7 @@ public class StateMapLexer {
     public StateMapLexer() {
         states = new HashMap<>();
         //State state = new State();
-        State commenSuspicion = new State("COMMENT_SUSPICION");
+        State commentSuspicion = new State("COMMENT_SUSPICION");
         State comment = new State("COMMENT");
         State bracketStart = new State("BRACKET_START");
         State bracketEnd = new State("BRACKET_END");
@@ -30,8 +30,8 @@ public class StateMapLexer {
         states.put(new Pair<>(bracketEnd, Config.WRAP_END), bracketEnd);
         states.put(new Pair<>(defaultState, Config.LINE_BREAKER), regLine);
         states.put(new Pair<>(stringLiteral, Config.LINE_BREAKER), regLine);
-        states.put(new Pair<>(defaultState, Config.SINGLE_SLASH), commenSuspicion);
-        states.put(new Pair<>(commenSuspicion, Config.SINGLE_SLASH), comment);
+        states.put(new Pair<>(defaultState, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(commentSuspicion, Config.SINGLE_SLASH), comment);
         states.put(new Pair<>(defaultState, Config.STRING_LITER), stringLiteral);
     }
 
