@@ -42,14 +42,13 @@ public class Lexer implements ILexer {
 
         StringBuilder lexeme = new StringBuilder();
         ICommand command;
-        //TODO: BUG: IF comment goes like "line;//comment" with no indent ->STATE WILL ALWAYS AT COMMENT_SUSPICION(?)
         if (hasMoreTokens()) {
             current = reader.read();
             if (current != Config.STRING_LITER && current != Config.SINGLE_SLASH) {
                 currentState = stateTransition.nextState(currentState, current);
             }
             while (reader.hasNext() || (int) current != -1) {
-                logger.info("Current State: " + currentState.toString());
+                logger.debug("Current State: " + currentState.toString());
                 LexerBuffer.append(current);
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
@@ -77,7 +76,7 @@ public class Lexer implements ILexer {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);
         }
         lexeme.append(LexerBuffer.getBuffer());
-        logger.info("sent token: \n" + lexeme.toString() + "\ntoken sent with State: " + currentState.toString());
+        logger.debug("sent token: \n" + lexeme.toString() + "\ntoken sent with State: " + currentState.toString());
         LexerBuffer.clear();
         return new Token(currentState.toString(), lexeme.toString());
     }

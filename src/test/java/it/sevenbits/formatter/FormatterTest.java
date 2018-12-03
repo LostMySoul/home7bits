@@ -20,12 +20,11 @@ public class FormatterTest {
                 "        {\n" +
                 "            {\n" +
                 "                {\n" +
-                "                    \n" +
                 "                }\n" +
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -40,7 +39,7 @@ public class FormatterTest {
         String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -54,7 +53,7 @@ public class FormatterTest {
         String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -68,7 +67,7 @@ public class FormatterTest {
         String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -82,7 +81,7 @@ public class FormatterTest {
         String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -98,7 +97,7 @@ public class FormatterTest {
                         "    aa{\n" +
                         "        aa;\n" +
                         "    }\n" +
-                        "}";
+                        "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);
@@ -115,7 +114,7 @@ public class FormatterTest {
         String answer = "aaa {\n" +
                 "    bbbb;\n" +
                 "    ccc;\n" +
-                "}";
+                "}\n";
         StringReader reader = new StringReader(toTest);
         StringWriter writer = new StringWriter(null);
         Formatter formatter = new Formatter(factory);

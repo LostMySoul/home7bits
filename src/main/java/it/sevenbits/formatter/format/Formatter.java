@@ -56,7 +56,7 @@ public class Formatter implements IFormatter {
             FormatterBuffer.clearBuffer();
             FormatterBuffer.append(token.getLexeme());
             currentState = stateTransition.nextState(currentState, token.getName());
-            logger.info("FORMATTER STATE: " + currentState.toString());
+            logger.debug("FORMATTER STATE: " + currentState.toString());
             command = commandHandler.getCommand(currentState);
             if (command != null) {
                 command.execute();
@@ -71,7 +71,9 @@ public class Formatter implements IFormatter {
         if (oldBuffer != null) {
             write(writer, oldBuffer);
         }
-    } //TODO: add checks if inside "" or comment
+        FormatterBuffer.setPreviousLexeme(null);
+        FormatterBuffer.clearBuffer();
+    }
 
     private void write(final IWriter writer, final String str) throws FormatterException {
         for (int i = 0; i < str.length(); i++) {

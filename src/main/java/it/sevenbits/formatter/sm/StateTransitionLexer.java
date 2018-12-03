@@ -19,6 +19,7 @@ public class StateTransitionLexer {
      *
      * @param state - old state
      * @param ch    - char that is a key for next state in map
+     * @return next state after current with given ch
      */
     public State nextState(final State state, final char ch) {
         return stateMap.getNextState(state, ch);
