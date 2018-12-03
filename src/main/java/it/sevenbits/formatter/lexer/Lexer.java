@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Lexer implements ILexer {
     private IReader reader;
-    private int nestCntr = 0;
     private char current;
     private final CommandHandlerLexer commandHandler;
     private final StateTransitionLexer stateTransition = new StateTransitionLexer();
@@ -59,7 +58,6 @@ public class Lexer implements ILexer {
                     break;
                 } else if (current == Config.STRING_LITER
                         || current == Config.SINGLE_SLASH) {
-                    nestCntr++;
                     currentState = stateTransition.nextState(currentState, current);
                     command = commandHandler.getCommand(currentState);
                     if (command != null) {

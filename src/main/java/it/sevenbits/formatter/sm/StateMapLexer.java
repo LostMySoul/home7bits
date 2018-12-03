@@ -32,6 +32,7 @@ public class StateMapLexer {
         states.put(new Pair<>(stringLiteral, Config.LINE_BREAKER), regLine);
         states.put(new Pair<>(defaultState, Config.SINGLE_SLASH), commentSuspicion);
         states.put(new Pair<>(commentSuspicion, Config.SINGLE_SLASH), comment);
+        states.put(new Pair<>(regLine, Config.SINGLE_SLASH), commentSuspicion);
         states.put(new Pair<>(defaultState, Config.STRING_LITER), stringLiteral);
     }
 
