@@ -1,5 +1,6 @@
 package it.sevenbits.formatter;
 
+import it.sevenbits.formatter.exception.FormatterErrorCode;
 import it.sevenbits.formatter.exception.FormatterException;
 import it.sevenbits.formatter.format.Formatter;
 import it.sevenbits.formatter.lexer.ILexerFactory;
@@ -22,7 +23,10 @@ public final class Main {
      * @throws FormatterException - if any ex-s with formatter occurs
      */
     public static void main(final String[] args) throws FormatterException {
-        FileReader reader = new FileReader("./maintext.txt"); //TODO: do args and add check that args not empty
+        if (args[0] == null || args[1] == null) {
+            throw new FormatterException(FormatterErrorCode.ERROR_READING_FILE);
+        }
+        FileReader reader = new FileReader("./maintext.txt");
         FileWriter writer = new FileWriter("./out.txt");
         ILexerFactory factory = new LexerFactory();
         Formatter formatter = new Formatter(factory);
