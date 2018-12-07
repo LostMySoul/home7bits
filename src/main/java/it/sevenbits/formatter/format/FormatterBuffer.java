@@ -49,8 +49,8 @@ public final class FormatterBuffer {
         return buffer.toString();
     }
 
-    public static void setBuffer(final StringBuilder buffer) {
-        FormatterBuffer.buffer = buffer;
+    public static void setBuffer(final StringBuilder newBuffer) {
+        buffer = newBuffer;
     }
 
     public static int getCurrentNesting() {

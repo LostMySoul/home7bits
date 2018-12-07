@@ -26,8 +26,8 @@ public final class Main {
         if (args[0] == null || args[1] == null) {
             throw new FormatterException(FormatterErrorCode.ERROR_READING_FILE);
         }
-        FileReader reader = new FileReader("./maintext.txt");
-        FileWriter writer = new FileWriter("./out.txt");
+        FileReader reader = new FileReader(args[0]); //"./maintext.txt"
+        FileWriter writer = new FileWriter(args[1]); //"./out.txt"
         ILexerFactory factory = new LexerFactory();
         Formatter formatter = new Formatter(factory);
         formatter.format(reader, writer);
