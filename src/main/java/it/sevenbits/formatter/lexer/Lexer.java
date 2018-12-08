@@ -39,7 +39,7 @@ public class Lexer implements ILexer {
      * @throws FormatterException if any ex-s occurs
      */
     public IToken readToken() throws FormatterException {
-
+        boolean isSpace = false;
         StringBuilder lexeme = new StringBuilder();
         ICommand command;
         if (hasMoreTokens()) {
@@ -49,7 +49,15 @@ public class Lexer implements ILexer {
             }
             while (reader.hasNext() || (int) current != -1) {
                 logger.debug("Current State: " + currentState.toString());
-                LexerBuffer.append(current);
+                if (Character.isWhitespace(current)) {
+                    isSpace = true;
+                } else if (isSpace && !Character.isWhitespace(current)) {
+                    LexerBuffer.append(Config.INDENT_CHAR);
+                    LexerBuffer.append(current);
+                    isSpace = false;
+                } else {
+                    LexerBuffer.append(current);
+                }
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
                         || current == Config.LINE_BREAKER) {
