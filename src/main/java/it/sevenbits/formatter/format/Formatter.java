@@ -8,7 +8,7 @@ import it.sevenbits.formatter.lexer.ILexerFactory;
 import it.sevenbits.formatter.lexer.IToken;
 import it.sevenbits.formatter.reader.IReader;
 import it.sevenbits.formatter.sm.State;
-import it.sevenbits.formatter.sm.StateTransitionFormatter;
+import it.sevenbits.formatter.format.sm.StateTransitionFormatter;
 import it.sevenbits.formatter.writer.IWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,6 @@ public class Formatter implements IFormatter {
             token = lexer.readToken();
             oldBuffer = FormatterBuffer.getBuffer();
             FormatterBuffer.setPreviousLexeme(oldBuffer);
-
             FormatterBuffer.clearBuffer();
             FormatterBuffer.append(token.getLexeme());
             currentState = stateTransition.nextState(currentState, token.getName());
@@ -64,7 +63,7 @@ public class Formatter implements IFormatter {
             }
             String previous = FormatterBuffer.getPreviousLexeme();
             if (previous != null) {
-                write(writer, FormatterBuffer.getPreviousLexeme());
+                write(writer, previous);
             }
         }
         oldBuffer = FormatterBuffer.getBuffer();

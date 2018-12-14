@@ -1,4 +1,6 @@
-package it.sevenbits.formatter.sm;
+package it.sevenbits.formatter.lexer.sm;
+
+import it.sevenbits.formatter.sm.State;
 
 /**
  * class for transitions between Lexer states

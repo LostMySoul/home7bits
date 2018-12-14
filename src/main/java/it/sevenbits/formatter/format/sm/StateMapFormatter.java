@@ -1,5 +1,8 @@
-package it.sevenbits.formatter.sm;
+package it.sevenbits.formatter.format.sm;
 
+
+import it.sevenbits.formatter.sm.Pair;
+import it.sevenbits.formatter.sm.State;
 
 import java.util.HashMap;
 import java.util.Map;

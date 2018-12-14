@@ -17,7 +17,6 @@ public class CommandHandlerFormatter {
     public CommandHandlerFormatter() {
         commandMap = new HashMap<>();
         State comment = new State("COMMENT");
-        //TODO: MB ADD STATE COMMENT AFTER COMMENT(needed or not?)
         State bracketStart = new State("BRACKET_START");
         State bracketEnd = new State("BRACKET_END");
         State regLine = new State("REGULAR_LINE");

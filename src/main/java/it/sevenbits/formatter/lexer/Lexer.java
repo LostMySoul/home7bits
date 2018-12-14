@@ -7,7 +7,7 @@ import it.sevenbits.formatter.exception.FormatterException;
 import it.sevenbits.formatter.lexer.cmd.CommandHandlerLexer;
 import it.sevenbits.formatter.reader.IReader;
 import it.sevenbits.formatter.sm.State;
-import it.sevenbits.formatter.sm.StateTransitionLexer;
+import it.sevenbits.formatter.lexer.sm.StateTransitionLexer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +57,7 @@ public class Lexer implements ILexer {
                     isSpace = false;
                 } else {
                     LexerBuffer.append(current);
-                }
+                } //TODO: add much states for normal line and set ; to previous char
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
                         || current == Config.LINE_BREAKER) {

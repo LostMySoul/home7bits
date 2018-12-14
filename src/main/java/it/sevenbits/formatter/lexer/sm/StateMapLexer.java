@@ -1,6 +1,8 @@
-package it.sevenbits.formatter.sm;
+package it.sevenbits.formatter.lexer.sm;
 
 import it.sevenbits.formatter.cfg.Config;
+import it.sevenbits.formatter.sm.Pair;
+import it.sevenbits.formatter.sm.State;
 
 import java.util.HashMap;
 import java.util.Map;
