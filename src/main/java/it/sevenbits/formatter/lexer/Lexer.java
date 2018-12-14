@@ -49,7 +49,7 @@ public class Lexer implements ILexer {
             }
             while (reader.hasNext() || (int) current != -1) {
                 logger.debug("Current State: " + currentState.toString());
-                if (Character.isWhitespace(current)) {
+                if (Character.isWhitespace(current)) { //TODO: ignore command if state WHITESPACE to WHITESPACE
                     isSpace = true;
                 } else if (isSpace && !Character.isWhitespace(current)) {
                     LexerBuffer.append(Config.INDENT_CHAR);
@@ -57,7 +57,7 @@ public class Lexer implements ILexer {
                     isSpace = false;
                 } else {
                     LexerBuffer.append(current);
-                } //TODO: add much states for normal line and set ; to previous char
+                } //TODO: add much states for normal line and set previous char in buffer
                 if (current == Config.WRAP_START
                         || current == Config.WRAP_END
                         || current == Config.LINE_BREAKER) {

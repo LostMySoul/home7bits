@@ -33,6 +33,7 @@ public class CommandHandlerFormatter {
      * @return needed command
      */
     public ICommand getCommand(final State state) {
-        return commandMap.getOrDefault(state, null);
+        return commandMap.getOrDefault(state, null); //TODO: set get BY CURRENT STATE AND NEXT TOKEN
+                                                               //TODO: name like Pair<>(state, token.name)
     }
 }

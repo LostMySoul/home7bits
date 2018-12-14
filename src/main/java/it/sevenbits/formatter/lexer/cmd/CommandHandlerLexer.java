@@ -21,6 +21,7 @@ public class CommandHandlerLexer {
         commandMap = new HashMap<>();
         State comment = new State("COMMENT");
         State stringLiteral = new State("STRING_LITERAL");
+        State normalString = new State("NORMAL_STRING"); //TODO:add append cmd just to append w\out jump char
         commandMap.put(comment, new CommentCommand(reader));
         commandMap.put(stringLiteral, new LiteralCommand(reader));
     }

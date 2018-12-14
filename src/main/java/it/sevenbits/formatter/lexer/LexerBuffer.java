@@ -6,7 +6,7 @@ package it.sevenbits.formatter.lexer;
 public final class LexerBuffer {
     private LexerBuffer() {
     }
-
+    private static char previous;
     private static StringBuilder buffer = new StringBuilder();
 
     /**
@@ -41,5 +41,13 @@ public final class LexerBuffer {
      */
     public static String getBuffer() {
         return buffer.toString();
+    }
+
+    public static char getPrevious() {
+        return previous;
+    }
+
+    public static void setPrevious(final char previous) {
+        LexerBuffer.previous = previous;
     }
 }
