@@ -4,10 +4,12 @@ package it.sevenbits.formatter.lexer;
  * class with buffer for lexer
  */
 public final class LexerBuffer {
+    private static Character current;
+    private static StringBuilder buffer = new StringBuilder();
+    private static boolean lexemeReady = false;
+
     private LexerBuffer() {
     }
-    private static char previous;
-    private static StringBuilder buffer = new StringBuilder();
 
     /**
      * method to append to buffer string
@@ -43,11 +45,19 @@ public final class LexerBuffer {
         return buffer.toString();
     }
 
-    public static char getPrevious() {
-        return previous;
+    public static Character getCurrent() {
+        return current;
     }
 
-    public static void setPrevious(final char previous) {
-        LexerBuffer.previous = previous;
+    public static void setCurrent(final Character current) {
+        LexerBuffer.current = current;
+    }
+
+    public static boolean isLexemeReady() {
+        return lexemeReady;
+    }
+
+    public static void setLexemeReady(final boolean lexemeReady) {
+        LexerBuffer.lexemeReady = lexemeReady;
     }
 }

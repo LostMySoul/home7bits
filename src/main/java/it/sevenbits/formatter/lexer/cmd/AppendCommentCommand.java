@@ -9,20 +9,22 @@ import it.sevenbits.formatter.reader.IReader;
 /**
  * Lexer command for comment
  */
-public class CommentCommand implements ICommand {
+public class AppendCommentCommand implements ICommand {
     private IReader reader;
 
     /**
-     * constructor for comment command
+     * constructor for appendComment command
+     *
      * @param reader - set reader for cmd
      */
-    public CommentCommand(final IReader reader) {
+    public AppendCommentCommand(final IReader reader) {
         this.reader = reader;
     }
 
     @Override
     public void execute() throws FormatterException {
         char current;
+        LexerBuffer.append(Config.SINGLE_SLASH);
         while (reader.hasNext()) {
             current = reader.read();
             if (current == Config.BACK_CARET_CHAR || current == Config.LINE_JUMP_CHAR) {
@@ -30,5 +32,6 @@ public class CommentCommand implements ICommand {
             }
             LexerBuffer.append(current);
         }
+        LexerBuffer.setLexemeReady(true);
     }
 }

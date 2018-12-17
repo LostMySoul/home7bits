@@ -9,20 +9,21 @@ import it.sevenbits.formatter.reader.IReader;
 /**
  * Lexer command for string literal
  */
-public class LiteralCommand implements ICommand {
+public class AppendLiteralCommand implements ICommand {
     private IReader reader;
 
     /**
-     * constructor for string literal command
+     * constructor for append string literal command
      * @param reader - set reader for cmd
      */
-    public LiteralCommand(final IReader reader) {
+    public AppendLiteralCommand(final IReader reader) {
         this.reader = reader;
     }
 
     @Override
     public void execute() throws FormatterException {
         char current;
+        LexerBuffer.append(Config.STRING_LITER);
         while (reader.hasNext()) {
             current = reader.read();
             if (current == Config.STRING_LITER) {
@@ -31,5 +32,6 @@ public class LiteralCommand implements ICommand {
             }
             LexerBuffer.append(current);
         }
+        LexerBuffer.setCurrent(reader.read());
     }
 }

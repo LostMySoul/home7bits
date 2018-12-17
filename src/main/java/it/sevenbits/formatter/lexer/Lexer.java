@@ -1,6 +1,5 @@
 package it.sevenbits.formatter.lexer;
 
-import it.sevenbits.formatter.cfg.Config;
 import it.sevenbits.formatter.command.ICommand;
 import it.sevenbits.formatter.exception.FormatterErrorCode;
 import it.sevenbits.formatter.exception.FormatterException;
@@ -16,7 +15,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Lexer implements ILexer {
     private IReader reader;
-    private char current;
     private final CommandHandlerLexer commandHandler;
     private final StateTransitionLexer stateTransition = new StateTransitionLexer();
     private State currentState = stateTransition.getStartState();
@@ -39,45 +37,18 @@ public class Lexer implements ILexer {
      * @throws FormatterException if any ex-s occurs
      */
     public IToken readToken() throws FormatterException {
-        boolean isSpace = false;
         StringBuilder lexeme = new StringBuilder();
         ICommand command;
         if (hasMoreTokens()) {
-            current = reader.read();
-            if (current != Config.STRING_LITER && current != Config.SINGLE_SLASH) {
-                currentState = stateTransition.nextState(currentState, current);
-            }
-            while (reader.hasNext() || (int) current != -1) {
+            LexerBuffer.setLexemeReady(false);
+                LexerBuffer.setCurrent(reader.read());
+            while ((reader.hasNext() || LexerBuffer.getCurrent() != null) && !LexerBuffer.isLexemeReady()) {
                 logger.debug("Current State: " + currentState.toString());
-                if (Character.isWhitespace(current)) { //TODO: ignore command if state WHITESPACE to WHITESPACE
-                    isSpace = true;
-                } else if (isSpace && !Character.isWhitespace(current)) {
-                    LexerBuffer.append(Config.INDENT_CHAR);
-                    LexerBuffer.append(current);
-                    isSpace = false;
-                } else {
-                    LexerBuffer.append(current);
-                } //TODO: add much states for normal line and set previous char in buffer
-                if (current == Config.WRAP_START
-                        || current == Config.WRAP_END
-                        || current == Config.LINE_BREAKER) {
-                    currentState = stateTransition.nextState(currentState, current);
-                    break;
-                } else if (current == Config.STRING_LITER
-                        || current == Config.SINGLE_SLASH) {
-                    currentState = stateTransition.nextState(currentState, current);
-                    command = commandHandler.getCommand(currentState);
-                    if (command != null) {
-                        command.execute();
-                    }
-                    if (currentState.toString().equals("COMMENT")) {
-                        break;
-                    }
-                    current = reader.read();
-                } else {
-                    if (reader.hasNext()) {
-                        current = reader.read();
-                    }
+                command = commandHandler.getCommand(currentState, LexerBuffer.getCurrent());
+                command.execute();
+                currentState = stateTransition.nextState(currentState, LexerBuffer.getCurrent());
+                if (!reader.hasNext()) {
+                    LexerBuffer.setLexemeReady(true);
                 }
             }
         } else {

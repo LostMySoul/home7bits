@@ -19,7 +19,7 @@ public class BracketStartCommand implements ICommand {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < FormatterBuffer.getCurrentNesting(); i++) {
             for (int j = 0; j < Config.INDENT_NUM; j++) {
-                sb.append(Config.INDENT_CHAR);
+                sb.append(Config.WHITESPACE);
             }
         }
         String toAppend = FormatterBuffer.getBuffer();

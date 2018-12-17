@@ -22,7 +22,7 @@ public class CommentCommand implements ICommand {
             StringBuilder sb = new StringBuilder(prev);
             sb.delete(sb.length() - 1, sb.length());
             for (int i = 0; i < Config.INDENT_NUM; i++) {
-                sb.append(Config.INDENT_CHAR);
+                sb.append(Config.WHITESPACE);
             }
             sb.append(comment);
             FormatterBuffer.setPreviousLexeme(sb.toString() + Config.LINE_JUMP_CHAR);

@@ -16,17 +16,17 @@ public final class Config {
      */
     public static final char LINE_BREAKER = ';';
     /**
-     * wrap start symbol
+     * bracket start symbol
      */
-    public static final char WRAP_START = '{';
+    public static final char BRACKET_START = '{';
     /**
-     * wrap end symbol
+     * bracket end symbol
      */
-    public static final char WRAP_END = '}';
+    public static final char BRACKET_END = '}';
     /**
      * indent char (space)
      */
-    public static final char INDENT_CHAR = ' ';
+    public static final char WHITESPACE = ' ';
     /**
      * char that transfer to new string
      */
@@ -35,6 +35,10 @@ public final class Config {
      * char that transfer to new string
      * */
     public static final char BACK_CARET_CHAR = '\r';
+    /**
+     * char that transfer to new string
+     * */
+    public static final char TAB_CHAR = '\t';
     /**
      * slash char
      * */
