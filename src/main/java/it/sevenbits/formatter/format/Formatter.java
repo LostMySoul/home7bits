@@ -47,30 +47,20 @@ public class Formatter implements IFormatter {
         logger.debug("FORMATTER STATE: " + currentState.toString());
         ICommand command;
         IToken token;
-        String oldBuffer;
         while (lexer.hasMoreTokens()) {
             token = lexer.readToken();
-            oldBuffer = FormatterBuffer.getBuffer();
-            FormatterBuffer.setPreviousLexeme(oldBuffer);
             FormatterBuffer.clearBuffer();
             FormatterBuffer.append(token.getLexeme());
+            command = commandHandler.getCommand(currentState, token.getName());
+            command.execute();
+            logger.debug("command executed and now buffer:\n" + FormatterBuffer.getBuffer());
             currentState = stateTransition.nextState(currentState, token.getName());
+            String out = FormatterBuffer.getBuffer();
+            if (out != null) {
+                write(writer, out);
+            }
             logger.debug("FORMATTER STATE: " + currentState.toString());
-            command = commandHandler.getCommand(currentState);
-            if (command != null) {
-                command.execute();
-                logger.debug("command executed");
-            }
-            String previous = FormatterBuffer.getPreviousLexeme();
-            if (previous != null) {
-                write(writer, previous);
-            }
         }
-        oldBuffer = FormatterBuffer.getBuffer();
-        if (oldBuffer != null) {
-            write(writer, oldBuffer);
-        }
-        FormatterBuffer.setPreviousLexeme(null);
         FormatterBuffer.clearBuffer();
     }
 

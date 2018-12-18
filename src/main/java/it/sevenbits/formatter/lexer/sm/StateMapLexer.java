@@ -71,7 +71,6 @@ public class StateMapLexer {
         states.put(new Pair<>(comment, Config.BRACKET_END), bracketEnd);
         putBeforeWhiteSpace(bracketEnd, whitespace);
         putAfterWhiteSpace(bracketEnd, whitespace, Config.BRACKET_END);
-
     }
 
     /**

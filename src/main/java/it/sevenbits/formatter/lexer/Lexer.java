@@ -41,15 +41,14 @@ public class Lexer implements ILexer {
         ICommand command;
         if (hasMoreTokens()) {
             LexerBuffer.setLexemeReady(false);
-                LexerBuffer.setCurrent(reader.read());
+            LexerBuffer.setCurrent(reader.read());
             while ((reader.hasNext() || LexerBuffer.getCurrent() != null) && !LexerBuffer.isLexemeReady()) {
                 logger.debug("Current State: " + currentState.toString());
                 command = commandHandler.getCommand(currentState, LexerBuffer.getCurrent());
-                command.execute();
                 currentState = stateTransition.nextState(currentState, LexerBuffer.getCurrent());
-                if (!reader.hasNext()) {
-                    LexerBuffer.setLexemeReady(true);
-                }
+                command.execute();
+                logger.debug("command executed");
+
             }
         } else {
             throw new FormatterException(FormatterErrorCode.NO_TOKENS);

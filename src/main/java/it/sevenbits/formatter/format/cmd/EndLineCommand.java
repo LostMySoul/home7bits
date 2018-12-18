@@ -5,13 +5,13 @@ import it.sevenbits.formatter.command.ICommand;
 import it.sevenbits.formatter.format.FormatterBuffer;
 
 /**
- * Formatter command for regular line
+ * Formatter command for end line
  */
-public class RegLineCommand implements ICommand {
+public class EndLineCommand implements ICommand {
     /**
-     * constructor for regular line command
+     * constructor for end line command
      */
-    public RegLineCommand() {
+    public EndLineCommand() {
     }
 
     @Override
@@ -22,7 +22,10 @@ public class RegLineCommand implements ICommand {
                 sb.append(Config.WHITESPACE);
             }
         }
-        sb.append(FormatterBuffer.getBuffer().trim() + Config.LINE_JUMP_CHAR);
+        String toAppend = FormatterBuffer.getBuffer();
+        if (toAppend != null) {
+            sb.append(toAppend.trim() + Config.LINE_JUMP_CHAR);
+        }
         FormatterBuffer.clearBuffer();
         FormatterBuffer.setBuffer(sb);
     }
