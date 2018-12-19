@@ -1,6 +1,6 @@
 package it.sevenbits.formatter.lexer;
 
-import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.io.reader.IReader;
 
 /**
  * lexer factory class

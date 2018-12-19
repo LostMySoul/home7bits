@@ -1,3 +1,3 @@
 /**
  * package for any reader realisations*/
-package it.sevenbits.formatter.reader;
+package it.sevenbits.formatter.io.reader;

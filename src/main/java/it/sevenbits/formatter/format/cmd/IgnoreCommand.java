@@ -1,7 +1,7 @@
 package it.sevenbits.formatter.format.cmd;
 
 import it.sevenbits.formatter.command.ICommand;
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterException;
 
 /**
  * ignore command formatter

@@ -1,10 +1,10 @@
 package it.sevenbits.formatter.lexer;
 
 import it.sevenbits.formatter.command.ICommand;
-import it.sevenbits.formatter.exception.FormatterErrorCode;
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterErrorCode;
+import it.sevenbits.formatter.exceptions.FormatterException;
 import it.sevenbits.formatter.lexer.cmd.CommandHandlerLexer;
-import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.io.reader.IReader;
 import it.sevenbits.formatter.sm.State;
 import it.sevenbits.formatter.lexer.sm.StateTransitionLexer;
 import org.slf4j.Logger;

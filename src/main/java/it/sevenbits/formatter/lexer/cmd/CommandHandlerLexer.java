@@ -2,7 +2,7 @@ package it.sevenbits.formatter.lexer.cmd;
 
 import it.sevenbits.formatter.cfg.Config;
 import it.sevenbits.formatter.command.ICommand;
-import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.io.reader.IReader;
 import it.sevenbits.formatter.sm.Pair;
 import it.sevenbits.formatter.sm.State;
 

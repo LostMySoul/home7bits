@@ -1,3 +1,3 @@
 /**
  * package for any writer realisations*/
-package it.sevenbits.formatter.writer;
+package it.sevenbits.formatter.io.writer;

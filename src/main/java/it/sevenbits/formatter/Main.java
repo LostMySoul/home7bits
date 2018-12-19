@@ -1,12 +1,12 @@
 package it.sevenbits.formatter;
 
-import it.sevenbits.formatter.exception.FormatterErrorCode;
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterErrorCode;
+import it.sevenbits.formatter.exceptions.FormatterException;
 import it.sevenbits.formatter.format.Formatter;
 import it.sevenbits.formatter.lexer.ILexerFactory;
 import it.sevenbits.formatter.lexer.LexerFactory;
-import it.sevenbits.formatter.reader.FileReader;
-import it.sevenbits.formatter.writer.FileWriter;
+import it.sevenbits.formatter.io.reader.FileReader;
+import it.sevenbits.formatter.io.writer.FileWriter;
 
 
 /**

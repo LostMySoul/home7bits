@@ -1,17 +1,17 @@
 package it.sevenbits.formatter;
 
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterException;
 import it.sevenbits.formatter.format.Formatter;
 import it.sevenbits.formatter.lexer.ILexerFactory;
 import it.sevenbits.formatter.lexer.LexerFactory;
-import it.sevenbits.formatter.reader.StringReader;
-import it.sevenbits.formatter.writer.StringWriter;
+import it.sevenbits.formatter.io.reader.StringReader;
+import it.sevenbits.formatter.io.writer.StringWriter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class FormatterTest {
-    ILexerFactory factory = new LexerFactory();
+    private ILexerFactory factory = new LexerFactory();
     @Test
     public void testFormatStringWithOnlyBounds() throws FormatterException {
         String toTest = "{{{{{}}}}}";
@@ -45,7 +45,7 @@ public class FormatterTest {
         Formatter formatter = new Formatter(factory);
         formatter.format(reader, writer);
         System.out.println(writer.getString());
-//        assertEquals(answer, writer.getString());
+        assertEquals(answer, writer.getString());
     }
 
     @Test

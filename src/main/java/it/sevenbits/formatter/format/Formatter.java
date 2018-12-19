@@ -1,15 +1,15 @@
 package it.sevenbits.formatter.format;
 
 import it.sevenbits.formatter.command.ICommand;
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterException;
 import it.sevenbits.formatter.format.cmd.CommandHandlerFormatter;
 import it.sevenbits.formatter.lexer.ILexer;
 import it.sevenbits.formatter.lexer.ILexerFactory;
 import it.sevenbits.formatter.lexer.IToken;
-import it.sevenbits.formatter.reader.IReader;
+import it.sevenbits.formatter.io.reader.IReader;
 import it.sevenbits.formatter.sm.State;
 import it.sevenbits.formatter.format.sm.StateTransitionFormatter;
-import it.sevenbits.formatter.writer.IWriter;
+import it.sevenbits.formatter.io.writer.IWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public class Formatter implements IFormatter {
      *
      * @param reader - reader object which implements IReader
      * @param writer - writer object which implements IWriter
-     * @throws FormatterException - throws exception if any problem with formatting appears
+     * @throws FormatterException - throws exceptions if any problem with formatting appears
      */
     public void format(final IReader reader, final IWriter writer) throws FormatterException {
         ILexer lexer = lexerFactory.createLexer(reader);

@@ -32,8 +32,12 @@ public class StateMapLexer {
         State comment = new State("COMMENT");
 
         states.put(new Pair<>(commentSuspicion, Config.SINGLE_SLASH), comment);
-        states.put(new Pair<>(comment, Config.SINGLE_SLASH), commentSuspicion);
         states.put(new Pair<>(defaultState, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(comment, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(bracketStart, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(bracketEnd, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(endLine, Config.SINGLE_SLASH), commentSuspicion);
+        states.put(new Pair<>(whitespace, Config.SINGLE_SLASH), commentSuspicion);
         putAfterWhiteSpace(commentSuspicion, whitespace, Config.SINGLE_SLASH);
         putBeforeWhiteSpace(commentSuspicion, whitespace);
 
@@ -45,7 +49,6 @@ public class StateMapLexer {
 
         states.put(new Pair<>(defaultState, Config.LINE_BREAKER), endLine);
         states.put(new Pair<>(endLine, Config.LINE_BREAKER), endLine);
-        states.put(new Pair<>(endLine, Config.SINGLE_SLASH), commentSuspicion);
         putBeforeWhiteSpace(endLine, whitespace);
         putAfterWhiteSpace(endLine, whitespace, Config.LINE_BREAKER);
 

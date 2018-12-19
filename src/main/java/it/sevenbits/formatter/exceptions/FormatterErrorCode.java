@@ -1,4 +1,4 @@
-package it.sevenbits.formatter.exception;
+package it.sevenbits.formatter.exceptions;
 
 /**
  * enum for error codes for Formatter exc-s*/

@@ -1,6 +1,6 @@
 package it.sevenbits.formatter.command;
 
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterException;
 
 /**
  * interface for commands

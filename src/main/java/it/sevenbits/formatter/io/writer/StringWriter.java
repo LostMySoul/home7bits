@@ -1,4 +1,4 @@
-package it.sevenbits.formatter.writer;
+package it.sevenbits.formatter.io.writer;
 
 /**
  * Implementation of IWriter for Strings

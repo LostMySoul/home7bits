@@ -1,4 +1,4 @@
-package it.sevenbits.formatter.reader;
+package it.sevenbits.formatter.io.reader;
 
 /**
  * Implementation of IReader for Strings

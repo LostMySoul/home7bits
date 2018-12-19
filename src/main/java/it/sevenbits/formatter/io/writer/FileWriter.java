@@ -1,7 +1,7 @@
-package it.sevenbits.formatter.writer;
+package it.sevenbits.formatter.io.writer;
 
-import it.sevenbits.formatter.exception.FormatterErrorCode;
-import it.sevenbits.formatter.exception.FormatterException;
+import it.sevenbits.formatter.exceptions.FormatterErrorCode;
+import it.sevenbits.formatter.exceptions.FormatterException;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
